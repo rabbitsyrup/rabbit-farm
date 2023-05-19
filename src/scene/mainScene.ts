@@ -27,13 +27,13 @@ export class MainScene extends Phaser.Scene {
     this.load.spritesheet('Basic Grass Biom things 1', 'assets/images/objects/Basic Grass Biom things 1.png', { frameWidth: 16, frameHeight: 16});
 
     // player
-    this.load.spritesheet('player', 'assets/images/characters/Basic Character Spritesheet.png', { frameWidth: 48, frameHeight: 48});
+    this.load.spritesheet('player', 'assets/images/characters/Basic Character Spritesheet.png', { frameWidth: 48, frameHeight: 48 });
   }
 
   create(): void {
     // sprite movements
     // player 
-    // 움직임의 역동성을 위해 시작 프레임은 3번째 부터 설정함
+    // 자연스러운 움직임을 위해 시작 프레임은 3번째 부터
     this.anims.create({key: "player-up", frames: this.anims.generateFrameNumbers("player", {start: 4, end: 7, first: 6}), frameRate: 5, repeat: -1});
     this.anims.create({key: "player-left", frames: this.anims.generateFrameNumbers("player", {start: 8, end: 11, first: 10}), frameRate: 5, repeat: -1});
     this.anims.create({key: "player-right", frames: this.anims.generateFrameNumbers("player", {start: 12, end: 15, first: 14}), frameRate: 5, repeat: -1});
@@ -57,9 +57,12 @@ export class MainScene extends Phaser.Scene {
     tilesets.push(map.addTilesetImage("Basic Grass Biom things 1", "Basic Grass Biom things 1"));
 
     // layer
-    map.createLayer("terrain", tilesets, 0, 0) as Phaser.Tilemaps.TilemapLayer;
-    map.createLayer("floor", tilesets, 0, 0) as Phaser.Tilemaps.TilemapLayer;
-    map.createLayer("static", tilesets, 0, 0) as Phaser.Tilemaps.TilemapLayer;
+    const floorLayer = map.createLayer("floor", tilesets, 0, 0) as Phaser.Tilemaps.TilemapLayer;
+    floorLayer.setCollisionByProperty({ collides: true });
+    const wallLayer = map.createLayer("wall", tilesets, 0, 0) as Phaser.Tilemaps.TilemapLayer;
+    wallLayer.setCollisionByProperty({ collides: true });
+    map.createLayer("overlap", tilesets, 0, 0) as Phaser.Tilemaps.TilemapLayer;
+    map.createLayer("sky", tilesets, 0, 0) as Phaser.Tilemaps.TilemapLayer;
 
     map.createFromObjects("object", {name: "door"}, true);
 
@@ -67,6 +70,9 @@ export class MainScene extends Phaser.Scene {
     const playerPoint = map.findObject("object", obj => obj.name === "player") as Phaser.Types.Tilemaps.TiledObject;
     this.player = this.physics.add.sprite(playerPoint.x as number, playerPoint.y as number, "player").play("player-down");
     this.playerDirection = "down";
+
+    this.physics.add.collider(this.player, floorLayer);
+    this.physics.add.collider(this.player, wallLayer);
 
     // keyboard settings
     this.cursor = this.input.keyboard.createCursorKeys() as Phaser.Types.Input.Keyboard.CursorKeys;
