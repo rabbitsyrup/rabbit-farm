@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.10" tiledversion="1.10.1" orientation="orthogonal" renderorder="right-down" width="30" height="30" tilewidth="16" tileheight="16" infinite="0" nextlayerid="6" nextobjectid="15">
+<map version="1.10" tiledversion="1.10.1" orientation="orthogonal" renderorder="right-down" width="30" height="30" tilewidth="16" tileheight="16" infinite="0" nextlayerid="6" nextobjectid="17">
  <editorsettings>
   <export target="map.json" format="json"/>
  </editorsettings>
@@ -2102,9 +2102,13 @@
 </data>
  </layer>
  <objectgroup id="2" name="object">
-  <object id="7" name="door" gid="413" x="224" y="96" width="16" height="16"/>
-  <object id="8" name="door" gid="413" x="272" y="64" width="16" height="16"/>
-  <object id="10" name="player" x="232" y="120">
+  <object id="10" name="player" x="232" y="136">
+   <point/>
+  </object>
+  <object id="15" name="house door" x="232" y="88">
+   <point/>
+  </object>
+  <object id="16" name="room door" x="280" y="56">
    <point/>
   </object>
  </objectgroup>

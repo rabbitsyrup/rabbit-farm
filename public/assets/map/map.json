@@ -131,30 +131,6 @@
          "name":"object",
          "objects":[
                 {
-                 "gid":413,
-                 "height":16,
-                 "id":7,
-                 "name":"door",
-                 "rotation":0,
-                 "type":"",
-                 "visible":true,
-                 "width":16,
-                 "x":224,
-                 "y":96
-                }, 
-                {
-                 "gid":413,
-                 "height":16,
-                 "id":8,
-                 "name":"door",
-                 "rotation":0,
-                 "type":"",
-                 "visible":true,
-                 "width":16,
-                 "x":272,
-                 "y":64
-                }, 
-                {
                  "height":0,
                  "id":10,
                  "name":"player",
@@ -164,7 +140,31 @@
                  "visible":true,
                  "width":0,
                  "x":232,
-                 "y":120
+                 "y":136
+                }, 
+                {
+                 "height":0,
+                 "id":15,
+                 "name":"house door",
+                 "point":true,
+                 "rotation":0,
+                 "type":"",
+                 "visible":true,
+                 "width":0,
+                 "x":232,
+                 "y":88
+                }, 
+                {
+                 "height":0,
+                 "id":16,
+                 "name":"room door",
+                 "point":true,
+                 "rotation":0,
+                 "type":"",
+                 "visible":true,
+                 "width":0,
+                 "x":280,
+                 "y":56
                 }],
          "opacity":1,
          "type":"objectgroup",
@@ -214,7 +214,7 @@
          "y":0
         }],
  "nextlayerid":6,
- "nextobjectid":15,
+ "nextobjectid":17,
  "orientation":"orthogonal",
  "renderorder":"right-down",
  "tiledversion":"1.10.1",
