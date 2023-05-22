@@ -3,9 +3,9 @@ import { MainScene } from './scene/mainScene';
 
 const config: Phaser.Types.Core.GameConfig = {
   type: Phaser.AUTO,
-  zoom: 1.5,
-  width: 480,
-  height: 480,
+  zoom: 2,
+  width: 320,
+  height: 320,
   backgroundColor: 0x000,
   scene: [MainScene],
   audio: {

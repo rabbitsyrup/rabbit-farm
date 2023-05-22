@@ -76,7 +76,7 @@ export class MainScene extends Phaser.Scene {
     // player
     const playerPoint = map.findObject("object", obj => obj.name === "player") as Phaser.Types.Tilemaps.TiledObject;
     this.player = this.physics.add.sprite(playerPoint.x as number, playerPoint.y as number, "player").play("player-down");
-    this.player.setSize(8, 8);
+    this.player.setSize(16, 8);
     this.playerDirection = "down";
 
     dynamicLayer.add(this.player);
