@@ -27,7 +27,7 @@ export class MainScene extends Phaser.Scene {
     this.load.spritesheet('Basic Grass Biom things 1', 'assets/images/objects/Basic Grass Biom things 1.png', { frameWidth: 16, frameHeight: 16});
 
     // player
-    this.load.spritesheet('player', 'assets/images/characters/Basic Character Spritesheet.png', { frameWidth: 48, frameHeight: 48 });
+    this.load.spritesheet('player', 'assets/images/characters/Basic Character Spritesheet.png', { frameWidth: 16, frameHeight: 16, margin: 16, spacing: 32 });
   }
 
   create(): void {
@@ -57,22 +57,31 @@ export class MainScene extends Phaser.Scene {
     tilesets.push(map.addTilesetImage("Basic Grass Biom things 1", "Basic Grass Biom things 1"));
 
     // layer
-    const floorLayer = map.createLayer("floor", tilesets, 0, 0) as Phaser.Tilemaps.TilemapLayer;
-    floorLayer.setCollisionByProperty({ collides: true });
-    const wallLayer = map.createLayer("wall", tilesets, 0, 0) as Phaser.Tilemaps.TilemapLayer;
-    wallLayer.setCollisionByProperty({ collides: true });
-    map.createLayer("overlap", tilesets, 0, 0) as Phaser.Tilemaps.TilemapLayer;
-    map.createLayer("sky", tilesets, 0, 0) as Phaser.Tilemaps.TilemapLayer;
+    const terrainLayer = map.createLayer("terrain", tilesets, 0, 0) as Phaser.Tilemaps.TilemapLayer;
+    terrainLayer.setCollisionByProperty({ collides: true });
+    const groundCollide = map.createLayer("ground-collide", tilesets, 0, 0) as Phaser.Tilemaps.TilemapLayer;
+    groundCollide.setCollisionByProperty({ collides: true });
+    const groundOverlap = map.createLayer("ground-overlap", tilesets, 0, 0) as Phaser.Tilemaps.TilemapLayer;
+    const skyLayer = map.createLayer("sky", tilesets, 0, 0) as Phaser.Tilemaps.TilemapLayer;
 
     map.createFromObjects("object", {name: "door"}, true);
+
+    const dynamicLayer = this.add.layer();
+    terrainLayer.setDepth(0);
+    groundCollide.setDepth(1);
+    groundOverlap.setDepth(2);
+    dynamicLayer.setDepth(3);
+    skyLayer.setDepth(4);
 
     // player
     const playerPoint = map.findObject("object", obj => obj.name === "player") as Phaser.Types.Tilemaps.TiledObject;
     this.player = this.physics.add.sprite(playerPoint.x as number, playerPoint.y as number, "player").play("player-down");
+    this.player.setSize(8, 8);
     this.playerDirection = "down";
 
-    this.physics.add.collider(this.player, floorLayer);
-    this.physics.add.collider(this.player, wallLayer);
+    dynamicLayer.add(this.player);
+    this.physics.add.collider(this.player, terrainLayer);
+    this.physics.add.collider(this.player, groundCollide);
 
     // keyboard settings
     this.cursor = this.input.keyboard.createCursorKeys() as Phaser.Types.Input.Keyboard.CursorKeys;
